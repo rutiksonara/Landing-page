@@ -1,63 +1,62 @@
 import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
-import './Footer.css';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer id="about" className="footer">
+    <footer id="about" className="bg-[var(--color-bg-primary)] border-t border-[var(--color-border)] py-24 pb-8">
       <div className="container">
-        <div className="footer__grid">
-          <div className="footer__brand">
-            <div className="footer__logo">
-              Cloud<span className="accent">Cad</span>AI
+        <div className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-16 mb-16 max-md:grid-cols-2 max-md:gap-12 max-sm:grid-cols-1">
+          <div className="max-md:col-span-2 max-sm:col-span-1">
+            <div className="text-lg font-semibold tracking-tight mb-2">
+              Cloud<span className="text-[var(--color-accent)]">Cad</span>AI
             </div>
-            <p className="footer__tagline">
+            <p className="text-sm max-w-[260px] mb-6 text-[var(--color-text-secondary)]">
               AI-powered PLM platform for rapid prototyping and accelerated product development.
             </p>
-            <div className="footer__social">
-              <a href="#" className="footer__social-link" aria-label="GitHub">
+            <div className="flex gap-1">
+              <a href="#" className="flex items-center justify-center w-9 h-9 bg-[var(--color-bg-tertiary)] rounded-lg text-[var(--color-text-secondary)] transition-all hover:bg-[var(--color-accent)] hover:text-white" aria-label="GitHub">
                 <Github size={18} />
               </a>
-              <a href="#" className="footer__social-link" aria-label="Twitter">
+              <a href="#" className="flex items-center justify-center w-9 h-9 bg-[var(--color-bg-tertiary)] rounded-lg text-[var(--color-text-secondary)] transition-all hover:bg-[var(--color-accent)] hover:text-white" aria-label="Twitter">
                 <Twitter size={18} />
               </a>
-              <a href="#" className="footer__social-link" aria-label="LinkedIn">
+              <a href="#" className="flex items-center justify-center w-9 h-9 bg-[var(--color-bg-tertiary)] rounded-lg text-[var(--color-text-secondary)] transition-all hover:bg-[var(--color-accent)] hover:text-white" aria-label="LinkedIn">
                 <Linkedin size={18} />
               </a>
-              <a href="#" className="footer__social-link" aria-label="Email">
+              <a href="#" className="flex items-center justify-center w-9 h-9 bg-[var(--color-bg-tertiary)] rounded-lg text-[var(--color-text-secondary)] transition-all hover:bg-[var(--color-accent)] hover:text-white" aria-label="Email">
                 <Mail size={18} />
               </a>
             </div>
           </div>
 
-          <div className="footer__links">
-            <h4 className="footer__links-title">Product</h4>
-            <a href="#features" className="footer__link">Features</a>
-            <a href="#demo" className="footer__link">Demo</a>
-            <a href="#" className="footer__link">Changelog</a>
-            <a href="#" className="footer__link">Roadmap</a>
+          <div className="flex flex-col gap-2">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-primary)] mb-4">Product</h4>
+            <a href="#features" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">Features</a>
+            <a href="#demo" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">Demo</a>
+            <a href="#" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">Changelog</a>
+            <a href="#" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">Roadmap</a>
           </div>
 
-          <div className="footer__links">
-            <h4 className="footer__links-title">Resources</h4>
-            <a href="#" className="footer__link">Documentation</a>
-            <a href="#" className="footer__link">API Reference</a>
-            <a href="#" className="footer__link">Tutorials</a>
-            <a href="#" className="footer__link">Blog</a>
+          <div className="flex flex-col gap-2">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-primary)] mb-4">Resources</h4>
+            <a href="#" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">Documentation</a>
+            <a href="#" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">API Reference</a>
+            <a href="#" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">Tutorials</a>
+            <a href="#" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">Blog</a>
           </div>
 
-          <div className="footer__links">
-            <h4 className="footer__links-title">Company</h4>
-            <a href="#" className="footer__link">About</a>
-            <a href="#" className="footer__link">Careers</a>
-            <a href="#" className="footer__link">Contact</a>
-            <a href="#" className="footer__link">Privacy</a>
+          <div className="flex flex-col gap-2">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-primary)] mb-4">Company</h4>
+            <a href="#" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">About</a>
+            <a href="#" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">Careers</a>
+            <a href="#" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">Contact</a>
+            <a href="#" className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]">Privacy</a>
           </div>
         </div>
 
-        <div className="footer__bottom">
-          <p className="footer__copyright">
+        <div className="pt-6 border-t border-[var(--color-border)]">
+          <p className="text-[13px] text-[var(--color-text-muted)] text-center">
             © {currentYear} CloudCadAI. All rights reserved.
           </p>
         </div>

@@ -9,7 +9,6 @@ import {
   Move3D,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import "./Features.css";
 
 interface Feature {
   id: string;
@@ -81,35 +80,33 @@ function FeatureSection({ feature, index, isActive }: FeatureSectionProps) {
 
   return (
     <div
-      className={`feature-section ${isActive ? "feature-section--active" : ""}`}
+      className={`min-h-screen flex items-center py-24 border-b border-[var(--color-border)] transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-40'}`}
       data-feature-id={feature.id}
     >
       <div
-        className={`feature-section__inner ${
-          isEven ? "" : "feature-section__inner--reverse"
-        }`}
+        className={`flex items-center gap-16 max-w-[1400px] mx-auto px-8 w-full max-lg:flex-col max-lg:gap-12 max-lg:text-center ${!isEven ? 'flex-row-reverse' : ''}`}
       >
         {/* Text Content */}
-        <div className="feature-section__content">
-          <div className="feature-section__text">
-            <div className="feature-section__icon">
+        <div className="flex-[0_0_45%] max-w-[560px] max-lg:flex-none max-lg:max-w-full max-lg:w-full">
+          <div className={`flex flex-col gap-6 max-lg:items-center ${isActive ? 'animate-[slideInUp_0.8s_ease_forwards]' : ''}`}>
+            <div className="flex items-center justify-center w-12 h-12 bg-[var(--color-accent-muted)] rounded-lg text-[var(--color-accent)]">
               <feature.icon size={22} />
             </div>
-            <h3 className="feature-section__title">{feature.title}</h3>
-            <p className="feature-section__description">
+            <h3 className="text-[clamp(1.75rem,3vw,2.5rem)] font-semibold leading-tight text-[var(--color-text-primary)]">{feature.title}</h3>
+            <p className="text-[17px] leading-[1.8] text-[var(--color-text-secondary)] max-w-[480px] max-lg:text-center">
               {feature.description}
             </p>
           </div>
         </div>
 
         {/* 3D Model Placeholder */}
-        <div className="feature-section__visual">
-          <div className="feature-section__model-placeholder">
-            <div className="feature-section__model-area">
+        <div className="flex-1 flex items-center justify-center min-h-[500px] max-lg:w-full max-lg:min-h-[350px] max-sm:min-h-[280px]">
+          <div className="w-full h-full flex items-center justify-center">
+            <div className={`w-full max-w-[600px] aspect-[4/3] bg-[var(--color-bg-secondary)] border border-dashed border-[var(--color-border)] rounded-xl flex items-center justify-center relative overflow-hidden max-lg:max-w-full max-sm:aspect-[16/10] ${isActive ? 'animate-[scaleIn_0.8s_ease_0.2s_forwards]' : ''}`}>
               {/* Placeholder indicator */}
-              <div className="feature-section__placeholder-content">
+              <div className="flex flex-col items-center gap-4 text-[var(--color-text-muted)] text-center">
                 <feature.icon size={48} strokeWidth={1} />
-                <span>3D Model Area</span>
+                <span className="text-sm font-medium uppercase tracking-wider">3D Model Area</span>
               </div>
             </div>
           </div>
@@ -128,7 +125,7 @@ export default function Features() {
     if (!container) return;
 
     const handleScroll = () => {
-      const sections = container.querySelectorAll(".feature-section");
+      const sections = container.querySelectorAll("[data-feature-id]");
 
       sections.forEach((section, index) => {
         const rect = section.getBoundingClientRect();
@@ -149,11 +146,11 @@ export default function Features() {
   }, []);
 
   return (
-    <section id="features" className="features">
-      <div className="features__header">
+    <section id="features" className="bg-[var(--color-bg-primary)] overflow-hidden">
+      <div className="py-24 pb-12 text-center border-t border-[var(--color-border)]">
         <div className="container">
-          <span className="features__label">Capabilities</span>
-          <h2 className="features__title">
+          <span className="inline-block text-xs font-semibold uppercase tracking-widest text-[var(--color-accent)] mb-4">Capabilities</span>
+          <h2 className="max-w-[480px] mx-auto leading-tight">
             Everything you need for
             <br />
             modern product design
@@ -161,7 +158,7 @@ export default function Features() {
         </div>
       </div>
 
-      <div className="features__sections" ref={containerRef}>
+      <div className="flex flex-col" ref={containerRef}>
         {features.map((feature, index) => (
           <FeatureSection
             key={feature.id}
