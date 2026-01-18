@@ -351,10 +351,21 @@ function FeatureSection({ feature, index, progress }: FeatureSectionProps) {
     const sectionEnd = (index + 1) / features.length;
     const sectionRange = sectionEnd - sectionStart;
     const midPoint = (sectionStart + sectionEnd) / 2;
+    const isLastFeature = index === features.length - 1;
 
     // Extend the "in focus" zone - features stay fully visible for longer
     const focusZone = sectionRange * 0.6; // 60% of section is in full focus
-    const distanceFromMid = Math.abs(progress - midPoint);
+    
+    // For the last feature, keep it in full focus when scrolled to the bottom
+    let distanceFromMid: number;
+    if (isLastFeature && progress >= sectionStart) {
+      // Last feature stays in focus once we've scrolled into its section
+      distanceFromMid = progress < midPoint 
+        ? midPoint - progress 
+        : 0; // Don't fade when past midpoint (scrolled to bottom)
+    } else {
+      distanceFromMid = Math.abs(progress - midPoint);
+    }
     
     // Only start fading outside the focus zone
     const fadeDistance = Math.max(0, distanceFromMid - focusZone / 2);
@@ -440,10 +451,21 @@ export default function Features() {
       const sectionEnd = (index + 1) / features.length;
       const sectionRange = sectionEnd - sectionStart;
       const midPoint = (sectionStart + sectionEnd) / 2;
+      const isLastFeature = index === features.length - 1;
 
       // Extend the "in focus" zone - features stay fully visible for longer
       const focusZone = sectionRange * 0.6;
-      const distanceFromMid = Math.abs(scrollProgress.current - midPoint);
+      
+      // For the last feature, keep it in full focus when scrolled to the bottom
+      let distanceFromMid: number;
+      if (isLastFeature && scrollProgress.current >= sectionStart) {
+        // Last feature stays in focus once we've scrolled into its section
+        distanceFromMid = scrollProgress.current < midPoint 
+          ? midPoint - scrollProgress.current 
+          : 0; // Don't fade when past midpoint (scrolled to bottom)
+      } else {
+        distanceFromMid = Math.abs(scrollProgress.current - midPoint);
+      }
       
       const fadeDistance = Math.max(0, distanceFromMid - focusZone / 2);
       const maxFadeDistance = sectionRange / 2 - focusZone / 2;
