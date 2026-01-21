@@ -1,4 +1,4 @@
-import { useRef, useMemo, Suspense, useEffect, useCallback, type JSX } from "react";
+import { useRef, useMemo, Suspense, useEffect, useCallback, useState, type JSX } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -21,6 +21,26 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import * as THREE from "three";
+
+// Hook to detect mobile/touch devices
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(
+        window.matchMedia('(max-width: 768px)').matches ||
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0
+      );
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  return isMobile;
+}
 
 interface Feature {
   id: string;
@@ -307,32 +327,45 @@ function FeatureModel({ featureId, color }: { featureId: string; color: string }
 
 // 3D Scene Component
 function Scene3D({ featureId, color }: { featureId: string; color: string }) {
+  const isMobile = useIsMobile();
+  
   return (
-    <Canvas
-      camera={{ position: [0, 0, 5], fov: 45 }}
-      style={{ background: 'transparent' }}
-      gl={{ antialias: true, alpha: true }}
-      dpr={[1, 2]}
-    >
-      <ambientLight intensity={0.4} />
-      <pointLight position={[10, 10, 10]} intensity={1} />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color={color} />
-      <spotLight position={[0, 10, 0]} intensity={0.8} angle={0.3} penumbra={1} />
+    <div style={{ width: '100%', height: '100%', touchAction: 'pan-y' }}>
+      <Canvas
+        camera={{ position: [0, 0, 5], fov: 45 }}
+        style={{ 
+          background: 'transparent',
+          touchAction: 'pan-y' // Critical: allow vertical scrolling
+        }}
+        gl={{ 
+          antialias: !isMobile, 
+          alpha: true,
+          powerPreference: isMobile ? 'low-power' : 'default'
+        }}
+        dpr={isMobile ? 1 : [1, 2]}
+        frameloop={isMobile ? 'demand' : 'always'}
+      >
+        <ambientLight intensity={0.4} />
+        <pointLight position={[10, 10, 10]} intensity={1} />
+        {!isMobile && <pointLight position={[-10, -10, -10]} intensity={0.5} color={color} />}
+        {!isMobile && <spotLight position={[0, 10, 0]} intensity={0.8} angle={0.3} penumbra={1} />}
 
-      <Suspense fallback={null}>
-        <FeatureModel featureId={featureId} color={color} />
-        <Environment preset="city" />
-      </Suspense>
+        <Suspense fallback={null}>
+          <FeatureModel featureId={featureId} color={color} />
+          {!isMobile && <Environment preset="city" />}
+        </Suspense>
 
-      <OrbitControls
-        enableZoom={false}
-        enablePan={false}
-        autoRotate
-        autoRotateSpeed={0.5}
-        maxPolarAngle={Math.PI / 2}
-        minPolarAngle={Math.PI / 3}
-      />
-    </Canvas>
+        <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          enableRotate={!isMobile} // Disable touch rotation on mobile
+          autoRotate
+          autoRotateSpeed={0.5}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 3}
+        />
+      </Canvas>
+    </div>
   );
 }
 
@@ -503,7 +536,7 @@ export default function Features() {
 
   return (
     <section id="features" className="overflow-hidden">
-      <div className="py-20 pb-8 text-center border-t border-[var(--color-border)]">
+      <div className="py-20 pb-8 text-center">
         <div className="container">
           <span className="inline-block text-xs font-semibold uppercase tracking-widest text-[var(--color-accent)] mb-4">
             Capabilities

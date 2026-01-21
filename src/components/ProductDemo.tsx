@@ -38,7 +38,7 @@ export default function ProductDemo() {
   return (
     <>
       <div id="product-tour" className="absolute -mt-16" />
-      <section id="demo" className="section relative border-t border-[var(--color-border)]" ref={sectionRef}>
+      <section id="demo" className="section relative" ref={sectionRef}>
         <div className="container">
           <div className="text-center max-w-[560px] mx-auto mb-16">
             <span className="inline-block text-xs font-semibold uppercase tracking-widest text-[var(--color-accent)] mb-4">Product Tour</span>

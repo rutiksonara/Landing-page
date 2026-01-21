@@ -1,7 +1,7 @@
 export default function Enterprise() {
   return (
     <section id="enterprise" className="overflow-hidden">
-      <div className="py-20 pb-16 text-center border-t border-[var(--color-border)]">
+      <div className="py-20 pb-16 text-center">
         <div className="container">
           <span className="inline-block text-xs font-semibold uppercase tracking-widest text-[var(--color-accent)] mb-4">
             Enterprise

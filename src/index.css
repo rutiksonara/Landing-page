@@ -214,6 +214,13 @@
   button {
     @apply font-sans cursor-pointer border-none outline-none bg-transparent;
   }
+
+  /* Mobile-specific: Ensure 3D canvas elements allow page scrolling */
+  @media (max-width: 768px), (pointer: coarse) {
+    canvas {
+      touch-action: pan-y !important;
+    }
+  }
 }
 
 /* Component Layer Styles */

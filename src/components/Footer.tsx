@@ -5,7 +5,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer id="about" className="border-t border-[var(--color-border)]">
+    <footer id="about" className="">
       {/* 3D CLOUDAICAD Section */}
       <div className="py-16">
         <Footer3D />
