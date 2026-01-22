@@ -2,6 +2,59 @@ import { useState, useEffect, useCallback } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Animated Logo Component - Cursor clicks cloud, cloud rotates on Y-axis
+function AnimatedLogo() {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      className="relative w-12 h-12 cursor-pointer"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{ perspective: '400px' }}
+    >
+      {/* Cloud - rotates 360° on Y-axis when hovered */}
+      <motion.img
+        src="/Cloud.png"
+        alt="Cloud"
+        className="absolute inset-0 w-full h-full object-contain"
+        animate={{
+          rotateY: isHovered ? 360 : 0,
+        }}
+        transition={{
+          duration: 1.2,
+          ease: [0.4, 0, 0.2, 1],
+        }}
+        style={{
+          transformStyle: 'preserve-3d',
+          transformOrigin: 'center center',
+        }}
+      />
+      
+      {/* Cursor - clicking animation when hovered */}
+      <motion.img
+        src="/Cursor.png"
+        alt="Cursor"
+        className="absolute object-contain pointer-events-none"
+        style={{
+          width: '100%',
+          height: '100%',
+          zIndex: 10,
+          transformOrigin: 'center center',
+        }}
+        animate={{
+          scale: isHovered ? [1, 0.92, 1] : 1,
+        }}
+        transition={{
+          duration: 0.3,
+          ease: 'easeInOut',
+          times: [0, 0.5, 1],
+        }}
+      />
+    </motion.div>
+  );
+}
+
 interface HeaderProps {
   onAuthClick: () => void;
 }
@@ -95,8 +148,9 @@ export default function Header({ onAuthClick }: HeaderProps) {
           {/* Logo */}
           <button
             onClick={() => scrollToSection('hero')}
-            className="shrink-0 bg-transparent border-none cursor-pointer"
+            className="shrink-0 bg-transparent border-none cursor-pointer flex items-center gap-2"
           >
+            <AnimatedLogo />
             <span className="text-lg font-semibold tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
               Cloud<span className="text-[var(--color-accent)]">Cad</span>
               <span style={{ color: 'var(--color-text-muted)' }}>.ai</span>
