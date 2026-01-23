@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import FullCloud from '../assets/Full-Cloud.png';
 
 // Animated Logo Component - Cursor clicks cloud, cloud rotates on Y-axis
 function AnimatedLogo() {
@@ -15,7 +16,7 @@ function AnimatedLogo() {
     >
       {/* Cloud - rotates 360° on Y-axis when hovered */}
       <motion.img
-        src="/Cloud.png"
+        src={FullCloud}
         alt="Cloud"
         className="absolute inset-0 w-full h-full object-contain"
         animate={{

@@ -5,6 +5,7 @@ import Features from './components/Features';
 import ProductDemo from './components/ProductDemo';
 import Enterprise from './components/Enterprise';
 import Footer from './components/Footer';
+import HackathonBanner from './components/HackathonBanner';
 import './index.css';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <HackathonBanner />
       <Header onAuthClick={handleGetStarted} />
       <main>
         <Hero ref={heroRef} onDemoClick={() => {}} />
